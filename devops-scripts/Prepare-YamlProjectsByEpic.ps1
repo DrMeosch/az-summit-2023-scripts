@@ -44,7 +44,7 @@ $FieldsMatches = $data.fields.'System.Description' | Select-String -Pattern 'bui
 foreach ($build in $FieldsMatches)
 {
   $build = $build.Groups[1].Value
-  $Uri = "https://dev.azure.com/dsec-labs/dscan/_apis/build/builds/{0}" -f $build
+  $Uri = "https://dev.azure.com/dsec-labs/Azure%20Summit%202023/_apis/build/builds/{0}" -f $build
   $data = Invoke-RestMethod -uri $Uri -Headers $AzureDevOpsAuthenicationHeader -ContentType 'application/json' -Method Get
 
   $name = $data.definition.name
