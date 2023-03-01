@@ -10,7 +10,7 @@ param(
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $AzureDevOpsAuthenicationHeader = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($env:SYSTEM_ACCESSTOKEN)")) }
 
-$Uri = "https://dev.azure.com/dsec-labs/dscan/_apis/build/builds/{0}" -f $BuildId
+$Uri = "https://dev.azure.com/dsec-labs/Azure%20Summit%202023/_apis/build/builds/{0}" -f $BuildId
 $data = Invoke-RestMethod -uri $Uri -Headers $AzureDevOpsAuthenicationHeader -Verbose -ContentType 'application/json' -Method Get
 if($data.definition.name -ne $Name)
 {
@@ -20,7 +20,7 @@ if($data.definition.name -ne $Name)
     Write-Host "##vso[task.complete result=Failed;]Build Id is not of the project"
 }
 
-$Uri = "https://dev.azure.com/dsec-labs/dscan/_apis/pipelines?api-version=6.0-preview.1"
+$Uri = "https://dev.azure.com/dsec-labs/Azure%20Summit%202023/_apis/pipelines?api-version=6.0-preview.1"
 $data = Invoke-RestMethod -uri $Uri -Headers $AzureDevOpsAuthenicationHeader -Verbose -ContentType 'application/json' -Method Get
 
 $pipeline_id = $data.value.GetEnumerator() | Where-Object { $_.name -eq $Name }
